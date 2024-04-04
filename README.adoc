@@ -1,0 +1,8 @@
+....
+# Install Conda first
+
+# Run setup.sh once
+
+# After that, before you run a script
+conda activate ./conda
+....
