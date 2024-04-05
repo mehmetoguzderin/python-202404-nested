@@ -5,6 +5,7 @@ import json
 from argparse import ArgumentParser
 import numpy as np
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 from functools import partial
 from progressbar import progressbar
 

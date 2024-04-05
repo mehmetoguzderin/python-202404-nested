@@ -6,6 +6,7 @@ from torchvision import transforms
 from torchvision.transforms import InterpolationMode
 import torch.nn.functional as F
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 import numpy as np
 
 from deva.dataset.utils import im_normalization

@@ -6,6 +6,7 @@ from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 from torchvision.transforms import InterpolationMode
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 import numpy as np
 
 from deva.dataset.utils import im_normalization, im_mean, reseed

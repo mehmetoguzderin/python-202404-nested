@@ -14,6 +14,7 @@ import os
 import os.path
 import numpy as np
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 import json
 from tqdm import tqdm
 import deva.vps_metrics.segmentation_and_tracking_quality as numpy_stq

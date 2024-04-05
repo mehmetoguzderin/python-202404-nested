@@ -7,6 +7,7 @@ from collections import defaultdict
 import numpy as np
 import hickle as hkl
 from PIL import Image, ImagePalette
+Image.MAX_IMAGE_PIXELS = None
 
 from progressbar import progressbar
 from multiprocessing import Pool

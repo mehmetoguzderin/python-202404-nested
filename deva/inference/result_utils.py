@@ -5,6 +5,7 @@ import torchvision
 import os
 from os import path
 from PIL import Image, ImagePalette
+Image.MAX_IMAGE_PIXELS = None
 import pycocotools.mask as mask_util
 from threading import Thread
 from queue import Queue

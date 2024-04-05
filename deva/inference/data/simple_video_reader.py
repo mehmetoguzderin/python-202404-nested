@@ -2,6 +2,7 @@ import os
 from os import path
 from torch.utils.data.dataset import Dataset
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 import numpy as np
 
 

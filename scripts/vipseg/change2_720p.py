@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 from multiprocessing import Pool
 
 

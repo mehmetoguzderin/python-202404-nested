@@ -22,6 +22,7 @@ import os
 import os.path
 import numpy as np
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 import multiprocessing as mp
 import time
 import json
