@@ -67,7 +67,8 @@ class KeyProjection(nn.Module):
         # selection
         self.e_proj = nn.Conv2d(in_dim, keydim, kernel_size=3, padding=1)
 
-        nn.init.orthogonal_(self.key_proj.weight.data)
+        # nn.init.orthogonal_(self.key_proj.weight.data)
+        nn.init.zeros_(self.key_proj.weight.data)
         nn.init.zeros_(self.key_proj.bias.data)
 
     def forward(self, x: torch.Tensor, *, need_s: bool,
