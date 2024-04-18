@@ -149,10 +149,10 @@ for vid_reader in pbar:
 
         for ti, data in enumerate(loader):
             with torch.cuda.amp.autocast(enabled=args.amp):
-                image = data['rgb'].to('cpu')[0]
+                image = data['rgb'].to('mps')[0]
                 mask = data.get('mask')
                 if mask is not None:
-                    mask = mask.to('cpu')[0]
+                    mask = mask.to('mps')[0]
                 info = data['info']
                 frame = info['frame'][0]
                 shape = info['shape']

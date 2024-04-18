@@ -16,7 +16,7 @@ def get_input_frame_for_deva(image_np: np.ndarray, min_side: int) -> torch.Tenso
         new_h, new_w = int(h * scale), int(w * scale)
         image = image.unsqueeze(0)
         image = F.interpolate(image, (new_h, new_w), mode='bilinear', align_corners=False)[0]
-    return image.to('cpu')
+    return image.to('mps')
 
 
 @torch.inference_mode()

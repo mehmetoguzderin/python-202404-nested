@@ -301,6 +301,7 @@ class SamAutomaticMaskGenerator:
             negative_points = np.repeat(negative_points[None, :, :], points.shape[0], axis=0)
             points = np.concatenate([points[:, None, :], negative_points], axis=1)
             transformed_points = self.predictor.transform.apply_coords(points, im_size)
+            transformed_points = transformed_points.astype(np.float32)
             in_points = torch.as_tensor(transformed_points, device=self.predictor.device)
             in_labels = torch.zeros((in_points.shape[0], in_points.shape[1]),
                                     dtype=torch.int,
@@ -309,6 +310,7 @@ class SamAutomaticMaskGenerator:
         else:
             # positive points only
             transformed_points = self.predictor.transform.apply_coords(points, im_size)
+            transformed_points = transformed_points.astype(np.float32)
             in_points = torch.as_tensor(transformed_points, device=self.predictor.device)
             in_labels = torch.ones(in_points.shape[0], dtype=torch.int, device=in_points.device)
             in_points = in_points[:, None, :]
@@ -320,6 +322,8 @@ class SamAutomaticMaskGenerator:
             multimask_output=True,
             return_logits=True,
         )
+
+        points = points.astype(np.float32)
 
         # Serialize predictions and store in MaskData
         data = MaskData(
@@ -382,7 +386,7 @@ class SamAutomaticMaskGenerator:
             unchanged = not changed
             mask, changed = remove_small_regions(mask, min_area, mode="islands")
             unchanged = unchanged and not changed
-
+            
             new_masks.append(torch.as_tensor(mask).unsqueeze(0))
             # Give score=0 to changed masks and score=1 to unchanged masks
             # so NMS will prefer ones that didn't need postprocessing
@@ -391,6 +395,7 @@ class SamAutomaticMaskGenerator:
         # Recalculate boxes and remove any new duplicates
         masks = torch.cat(new_masks, dim=0)
         boxes = batched_mask_to_box(masks)
+        scores = scores.astype(np.float32)
         keep_by_nms = batched_nms(
             boxes.float(),
             torch.as_tensor(scores),

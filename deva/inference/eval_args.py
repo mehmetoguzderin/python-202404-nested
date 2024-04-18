@@ -72,7 +72,7 @@ def get_model_and_config(parser: ArgumentParser):
     config['enable_long_term'] = not config['disable_long_term']
 
     # Load our checkpoint
-    network = DEVA(config).to('cpu').eval()
+    network = DEVA(config).to('mps').eval()
     if args.model is not None:
         print(f'Loading model from {args.model}')
         model_weights = torch.load(io.BytesIO(open(args.model, 'rb').read()), map_location="cpu")

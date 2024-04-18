@@ -24,7 +24,7 @@ class Trainer:
         self.deep_update_prob = config['deep_update_prob']
         self.local_rank = local_rank
 
-        self.DEVA = nn.parallel.DistributedDataParallel(DEVA(config).to('cpu'),
+        self.DEVA = nn.parallel.DistributedDataParallel(DEVA(config).to('mps'),
                                                         device_ids=[local_rank],
                                                         output_device=local_rank,
                                                         broadcast_buffers=False)

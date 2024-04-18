@@ -3,6 +3,9 @@ from os import path
 from argparse import ArgumentParser
 
 import torch
+
+torch.set_default_device('mps')
+
 from torch.utils.data import DataLoader
 import numpy as np
 
@@ -32,7 +35,7 @@ if __name__ == '__main__':
     add_ext_eval_args(parser)
     add_auto_default_args(parser)
     deva_model, cfg, args = get_model_and_config(parser)
-    sam_model = get_sam_model(cfg, 'cpu')
+    sam_model = get_sam_model(cfg, 'mps')
     """
     Temporal setting
     """

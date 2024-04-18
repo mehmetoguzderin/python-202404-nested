@@ -41,7 +41,7 @@ def demo_with_text(video: gr.Video, text: str, threshold: float, max_num_objects
     cfg['max_missed_detection_count'] = max_missed_detection
     cfg['sam_variant'] = sam_variant
     cfg['temporal_setting'] = temporal_setting
-    gd_model, sam_model = get_grounding_dino_model(cfg, 'cpu')
+    gd_model, sam_model = get_grounding_dino_model(cfg, 'mps')
 
     deva = DEVAInferenceCore(deva_model, config=cfg)
     deva.next_voting_frame = cfg['num_voting_frames'] - 1
@@ -115,7 +115,7 @@ def demo_automatic(video: gr.Video, threshold: float, points_per_side: int, max_
     cfg['sam_variant'] = sam_variant
     cfg['suppress_small_objects'] = suppress_small_mask
     cfg['temporal_setting'] = temporal_setting
-    sam_model = get_sam_model(cfg, 'cpu')
+    sam_model = get_sam_model(cfg, 'mps')
 
     deva = DEVAInferenceCore(deva_model, config=cfg)
     deva.next_voting_frame = cfg['num_voting_frames'] - 1
