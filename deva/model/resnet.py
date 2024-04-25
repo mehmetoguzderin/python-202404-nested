@@ -154,12 +154,12 @@ class ResNet(nn.Module):
 def resnet18(pretrained=True, extra_dim=0):
     model = ResNet(BasicBlock, [2, 2, 2, 2], extra_dim)
     if pretrained:
-        load_weights_add_extra_dim(model, model_zoo.load_url(model_urls['resnet18'], map_location='mps'), extra_dim)
+        load_weights_add_extra_dim(model, model_zoo.load_url(model_urls['resnet18'], map_location='cpu'), extra_dim)
     return model
 
 def resnet50(pretrained=True, extra_dim=0):
     model = ResNet(Bottleneck, [3, 4, 6, 3], extra_dim)
     if pretrained:
-        load_weights_add_extra_dim(model, model_zoo.load_url(model_urls['resnet50'], map_location='mps'), extra_dim)
+        load_weights_add_extra_dim(model, model_zoo.load_url(model_urls['resnet50'], map_location='cpu'), extra_dim)
     return model
 

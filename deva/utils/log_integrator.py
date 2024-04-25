@@ -69,7 +69,7 @@ class Integrator:
 
             if self.distributed:
                 # Inplace operation
-                avg = torch.tensor(avg).to('mps')
+                avg = torch.tensor(avg).to('cpu')
                 torch.distributed.reduce(avg, dst=0)
 
                 if self.local_rank == 0:

@@ -687,7 +687,7 @@ def register_tiny_vit_model(fn):
             url = _checkpoint_url_format.format(_provided_checkpoints[model_name])
             checkpoint = torch.hub.load_state_dict_from_url(
                 url=url,
-                map_location='mps',
+                map_location='cpu',
                 check_hash=False,
             )
             model.load_state_dict(checkpoint['model'])

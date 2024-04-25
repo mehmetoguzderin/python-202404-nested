@@ -145,3 +145,5 @@ dmypy.json
 
 # macOS
 .DS_Store
+output.bin
+memray*.html

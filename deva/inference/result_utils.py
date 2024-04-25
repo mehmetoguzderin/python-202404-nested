@@ -97,6 +97,7 @@ class ResultSaver:
                   path_to_image: str = None):
 
         if need_resize:
+            print('Resizing the mask')
             prob = F.interpolate(prob.unsqueeze(1), shape, mode='bilinear', align_corners=False)[:,
                                                                                                  0]
         # Probability mask -> index mask

@@ -56,8 +56,8 @@ for vid_name in pbar:
         scores = []
         for ti, data in enumerate(loader):
             time_indices.append(data['info']['time_index'][0].item())
-            image = data['rgb'].to('mps')[0]
-            mask = data['mask'].to('mps')[0]
+            image = data['rgb'].to('cpu')[0]
+            mask = data['mask'].to('cpu')[0]
             images.append(image)
             masks.append(mask)
 
@@ -118,7 +118,7 @@ for vid_name in pbar:
 
             for ti, data in enumerate(loader):
                 with torch.cuda.amp.autocast(enabled=args.amp):
-                    image = data['rgb'].to('mps')[0]
+                    image = data['rgb'].to('cpu')[0]
                     info = data['info']
                     frame = info['frame'][0]
                     shape = info['shape']

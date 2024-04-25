@@ -16,7 +16,7 @@ def get_input_frame_for_deva(image_np: np.ndarray, min_side: int) -> torch.Tenso
         new_h, new_w = int(h * scale), int(w * scale)
         image = image.unsqueeze(0)
         image = F.interpolate(image, (new_h, new_w), mode='bilinear', align_corners=False)[0]
-    return image.to('mps')
+    return image.to('cpu')
 
 
 @torch.inference_mode()
@@ -37,7 +37,9 @@ def flush_buffer(deva: DEVAInferenceCore, result_saver: ResultSaver) -> None:
         this_frame_name = frame_info.name
         this_image_np = frame_info.image_np
         h, w = this_image_np.shape[:2]
+        print("Stepping DEVA")
         prob = deva.step(this_image, None, None)
+        print("Saving mask")
         result_saver.save_mask(prob,
                                this_frame_name,
                                need_resize=need_resize,

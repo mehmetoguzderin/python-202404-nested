@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 
 import torch
 
-torch.set_default_device('mps')
+torch.set_default_device('cpu')
 
 from torch.utils.data import DataLoader
 import numpy as np
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     add_ext_eval_args(parser)
     add_auto_default_args(parser)
     deva_model, cfg, args = get_model_and_config(parser)
-    sam_model = get_sam_model(cfg, 'mps')
+    sam_model = get_sam_model(cfg, 'cpu')
     """
     Temporal setting
     """
@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     # get data
     video_reader = SimpleVideoReader(cfg['img_path'])
-    loader = DataLoader(video_reader, batch_size=None, collate_fn=no_collate, num_workers=8)
+    loader = DataLoader(video_reader, batch_size=None, collate_fn=no_collate, num_workers=1)
     out_path = cfg['output']
 
     # Start eval
@@ -65,8 +65,16 @@ if __name__ == '__main__':
     with torch.cuda.amp.autocast(enabled=args.amp):
         for ti, (frame, im_path) in enumerate(tqdm(loader)):
             process_frame(deva, sam_model, im_path, result_saver, ti, image_np=frame)
+
+        print("Flushing buffer")
+        
         flush_buffer(deva, result_saver)
+
+    print('Processing done')
+
     result_saver.end()
+
+    print('Saving results')
 
     # save this as a video-level json
     with open(path.join(out_path, 'pred.json'), 'w') as f:

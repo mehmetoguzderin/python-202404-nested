@@ -32,7 +32,7 @@ if __name__ == '__main__':
     add_ext_eval_args(parser)
     add_text_default_args(parser)
     deva_model, cfg, args = get_model_and_config(parser)
-    gd_model, sam_model = get_grounding_dino_model(cfg, 'mps')
+    gd_model, sam_model = get_grounding_dino_model(cfg, 'cpu')
     """
     Temporal setting
     """
