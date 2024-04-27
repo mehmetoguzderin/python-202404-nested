@@ -33,7 +33,6 @@ dependencies:
       - contourpy==1.2.0
       - cycler==0.12.1
       - defusedxml==0.7.1
-      - deva==1.0.0
       - fastapi==0.110.0
       - ffmpy==0.3.2
       - filelock==3.13.3
