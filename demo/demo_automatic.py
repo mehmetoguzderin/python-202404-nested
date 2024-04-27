@@ -1,5 +1,6 @@
 import os
 from os import path
+import platform
 from argparse import ArgumentParser
 
 import torch
@@ -44,7 +45,10 @@ if __name__ == '__main__':
 
     # get data
     video_reader = SimpleVideoReader(cfg['img_path'])
-    loader = DataLoader(video_reader, batch_size=None, collate_fn=no_collate, num_workers=1)
+    num_workers = 32
+    if platform.system() == 'Darwin':
+        num_workers = 1
+    loader = DataLoader(video_reader, batch_size=None, collate_fn=no_collate, num_workers=num_workers)
     out_path = cfg['output']
 
     # Start eval
