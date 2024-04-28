@@ -35,7 +35,7 @@ def add_ext_eval_args(parser: ArgumentParser):
         "--SAM_NUM_POINTS_PER_BATCH",
         type=int,
         help="Number of points computed per batch",
-        default=64,
+        default=8,
     )
     parser.add_argument(
         "--SAM_PRED_IOU_THRESHOLD",
