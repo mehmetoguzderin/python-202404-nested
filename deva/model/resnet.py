@@ -24,7 +24,7 @@ def load_weights_add_extra_dim(target, source_state, extra_dim=1):
                     # print(v1.shape, tar_v.shape)
                     c, _, w, h = v1.shape
                     pads = torch.zeros((c,extra_dim,w,h), device=tar_v.device)
-                    # nn.init.orthogonal_(pads)
+                    nn.init.orthogonal_(pads)
                     tar_v = torch.cat([tar_v, pads], 1)
 
                 new_dict[k1] = tar_v
